@@ -2,7 +2,6 @@ const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const cors = require('cors')
-const Product = require('./models/Product')
 
 const app = express()
 dotenv.config()
@@ -10,12 +9,12 @@ app.use(express.json())
 app.use(cors())
 
 // routes
-app.get('/prodotti', async (req, res) => {
-    const products = await Product.find()
-    res.json(products)
-})
+const authRoute = require('./routes/auth')
+const productsRoute = require('./routes/products')
 
 // use routes
+app.use('/api/products', productsRoute)
+app.use('/api/auth', authRoute)
 
 // connect db
 mongoose.connect(process.env.MONGODB_URL)
