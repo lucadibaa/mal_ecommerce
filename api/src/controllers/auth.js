@@ -21,6 +21,14 @@ const handleErrors = err => {
     return errors
 }
 
+const maxAge = 10 * 24 * 60 * 60
+const handleToken = (id, role) => {
+    return jwt.sign(
+        { id, role },
+        process.env.JWT_SECRET,
+        { expiresIn: maxAge })
+}
+
 exports.register = async (req, res) => {
     const { firstName, lastName, email, password } = req.body
 
@@ -33,7 +41,9 @@ exports.register = async (req, res) => {
 
     try {
         const savedUser = await user.save()
-        res.status(201).json(savedUser)
+        const token = handleToken(savedUser._id, savedUser._doc.role)
+        const { password, address, ...others } = savedUser._doc
+        res.status(201).json({ ...others, token })
     } catch (err) {
         const errors = handleErrors(err)
         res.status(400).json({ errors })
@@ -42,18 +52,22 @@ exports.register = async (req, res) => {
 }
 
 exports.login = async (req, res) => {
-    const { email, password } = req.body
+    const { email } = req.body
+    const bodyPsw = req.body.password
 
     try {
         const user = await User.findOne({ email })
 
         if (!user) return res.status(401).json({ message: 'Utente non registrato!' })
 
-        const decryptedPassword = await bcrypt.compare(password, user.password)
+        const decryptedPassword = await bcrypt.compare(bodyPsw, user.password)
 
         if (!decryptedPassword) return res.status(400).json({ message: "Credenziali non corrette!" })
 
-        res.status(200).json({ user })
+        const token = handleToken(user._id, user.role)
+        const { password, ...others } = user._doc
+
+        res.status(200).json({ ...others, token })
     } catch (err) {
         res.status(500).json(err)
     }
