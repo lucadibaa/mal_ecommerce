@@ -21,6 +21,6 @@ mongoose.connect(process.env.MONGODB_URL)
     .then(() => console.log('Database successfully connected!'))
     .catch(err => console.log(err))
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server is up and running on port ${process.env.PORT}`)
+app.listen(process.env.PORT || 5000, () => {
+    console.log(`Server is up and running on port ${process.env.PORT || 5000}`)
 })
