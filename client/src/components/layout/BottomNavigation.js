@@ -30,7 +30,7 @@ const BottomNavigation = () => {
     ]
 
     return (
-        <div className="">
+        <div className="sm:hidden">
             <div className="fixed bottom-[62px] z-20 bg-[#FFFCFF] h-3 w-full" />
             <div className="w-full h-[62px] fixed bottom-0 z-30 left-0 bg-[#F7C548] flex justify-center items-center rounded-t">
                 <ul className="flex w-[310px]">
