@@ -1,26 +1,20 @@
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getProducts } from './redux/actions/productsActions.js'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
+import Home from './pages/Home.js'
 
 function App() {
 
-  const { products } = useSelector(state => state.products)
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    dispatch(getProducts())
-  }, [dispatch])
-
-  console.log(products)
-
   return (
-    <div className='bg-red-900'>
-      hello
-      {
-        products?.map(product => <div>{product.name}</div>)
-      }
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/carrello' element={<Home />} />
+        <Route path='/cerca' element={<Home />} />
+        <Route path='/ordini' element={<Home />} />
+        <Route path='/profilo' element={<Home />} />
+        <Route path='/home' element={<Home />} />
+        <Route path='/' element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
