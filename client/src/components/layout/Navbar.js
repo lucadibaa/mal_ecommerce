@@ -5,21 +5,21 @@ import { ClipboardCheckIcon, ShoppingCartIcon, UserIcon } from "@heroicons/react
 const icons = [
     {
         title: 'Profilo',
-        icon: <UserIcon className="h-6" />
+        icon: <UserIcon className="h-6 text-gray-700" />
     },
     {
         title: 'Ordini',
-        icon: <ClipboardCheckIcon className="h-6" />
+        icon: <ClipboardCheckIcon className="h-6 text-gray-700" />
     },
     {
         title: 'Carrello',
-        icon: <ShoppingCartIcon className="h-6" />
+        icon: <ShoppingCartIcon className="h-6 text-gray-700" />
     },
 ]
 
 const Navbar = () => {
     return (
-        <div className="hidden sm:grid sticky top-0 z-40 shadow-lg bg-black text-white w-full h-20 grid-cols-12 items-center justify-items-center content-center">
+        <div className="hidden sm:grid sticky top-0 z-40 shadow bg-white text-black w-full h-20 grid-cols-12 items-center justify-items-center content-center">
             <div className="h-28">
                 <img src={Logo} className="h-full" alt="logo" />
             </div>

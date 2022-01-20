@@ -5,7 +5,7 @@ const Layout = (props) => {
     return (
         <div>
             <Navbar />
-            <div className="bg-[#FFFCFF] min-h-screen max-w-xs mx-auto">
+            <div className="bg-snow min-h-screen w-full mx-auto">
                 {props.children}
             </div>
             <BottomNavigation />
