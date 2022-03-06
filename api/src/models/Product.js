@@ -6,6 +6,11 @@ const productSchema = new mongoose.Schema({
         required: [true, 'Inserisci il nome del prodotto'],
         unique: true
     },
+    slug: {
+        type: String,
+        required: true,
+        unique: true
+    },
     brand: {
         type: String,
         required: [true, 'Inserisci il brand del prodotto']

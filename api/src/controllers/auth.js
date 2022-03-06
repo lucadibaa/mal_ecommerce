@@ -43,10 +43,10 @@ exports.register = async (req, res) => {
         const savedUser = await user.save()
         const token = handleToken(savedUser._id, savedUser._doc.role)
         const { password, address, ...others } = savedUser._doc
-        res.status(201).json({ ...others, token })
+        res.status(201).json({ success: true, ...others, token })
     } catch (err) {
         const errors = handleErrors(err)
-        res.status(400).json({ errors })
+        res.status(400).json({ success: false, errors })
     }
 
 }
@@ -67,8 +67,8 @@ exports.login = async (req, res) => {
         const token = handleToken(user._id, user.role)
         const { password, ...others } = user._doc
 
-        res.status(200).json({ ...others, token })
+        res.status(200).json({ success: true, ...others, token })
     } catch (err) {
-        res.status(500).json(err)
+        res.status(500).json({ success: false, err })
     }
 }
