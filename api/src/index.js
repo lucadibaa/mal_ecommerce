@@ -11,10 +11,12 @@ app.use(cors())
 // routes
 const authRoute = require('./routes/auth')
 const productsRoute = require('./routes/products')
+const cartRoute = require('./routes/cart')
 
 // use routes
-app.use('/api/products', productsRoute)
 app.use('/api/auth', authRoute)
+app.use('/api/products', productsRoute)
+app.use('/api/cart', cartRoute)
 
 // connect db
 mongoose.connect(process.env.MONGODB_URL)
