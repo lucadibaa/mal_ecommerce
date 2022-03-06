@@ -60,3 +60,29 @@ exports.createProduct = async (req, res) => {
         res.status(400).json({ success: false, errors })
     }
 }
+
+exports.deleteProduct = async (req, res) => {
+    const { id } = req.body
+    const user = req.user
+
+    try {
+        let product
+        if (user.role === 'admin') {
+            product = await Product.findByIdAndDelete(id)
+            if (!product) return res.status(404).json({ success: false, message: 'Product not found!' })
+        } else {
+            product = await Product.findOneAndDelete({
+                $and: [
+                    { _id: id },
+                    { createdBy: user.id }
+                ]
+            })
+        }
+
+        if (!product) return res.status(401).json({ success: false, message: 'Unauthorized!' })
+
+        res.status(201).json({ success: true, deletedProduct: product })
+    } catch (err) {
+        res.status(400).json({ success: false, err })
+    }
+}
